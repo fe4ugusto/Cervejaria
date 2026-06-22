@@ -1,6 +1,7 @@
 import { createContext, useContext, useState } from "react";
 import {
   signInWithEmailAndPassword,
+  createUserWithEmailAndPassword,
   signOut,
   signInWithPopup,
   GoogleAuthProvider,
@@ -59,6 +60,25 @@ export function AuthProvider({ children }) {
     }
   };
 
+  const signup = async (email, password, name) => {
+    try {
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      
+      const u = {
+        email: userCredential.user.email,
+        name: name || userCredential.user.displayName || email.split("@")[0],
+        role: "cliente",
+      };
+
+      localStorage.setItem("brewery_user", JSON.stringify(u));
+      setUser(u);
+      return true;
+    } catch (error) {
+      console.log(error);
+      return false;
+    }
+  };
+
   const loginWithGoogle = async () => {
     try {
       const result = await signInWithPopup(auth, googleProvider);
@@ -87,7 +107,7 @@ export function AuthProvider({ children }) {
 
   return (
     <AuthContext.Provider
-      value={{ user, login, loginWithGoogle, logout }}
+      value={{ user, login, signup, loginWithGoogle, logout }}
     >
       {children}
     </AuthContext.Provider>

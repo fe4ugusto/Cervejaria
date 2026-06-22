@@ -14,7 +14,7 @@ export function CervejasPage() {
   const [fornecedores, setFornecedores] = useState([]);
   const [cervejas, setCervejas] = useState([]);
   const [modal, setModal] = useState(null);
-  const [form, setForm] = useState({ nome: "", estiloId: "", fornecedorId: "", ibu: "", abv: "", preco: "", estoque: "" });
+  const [form, setForm] = useState({ nome: "", estiloId: "", fornecedorId: "", ibu: "", abv: "", preco: "", estoque: "", imagemUrl: "" });
   const [errors, setErrors] = useState({});
   const [busca, setBusca] = useState("");
 
@@ -40,13 +40,13 @@ export function CervejasPage() {
   }
 
   const openNew = () => {
-    setForm({ nome: "", estiloId: "", fornecedorId: "", ibu: "", abv: "", preco: "", estoque: "" });
+    setForm({ nome: "", estiloId: "", fornecedorId: "", ibu: "", abv: "", preco: "", estoque: "", imagemUrl: "" });
     setErrors({});
     setModal("new");
   };
 
   const openEdit = (c) => {
-    setForm({ nome: c.nome, estiloId: c.estiloId, fornecedorId: c.fornecedorId, ibu: c.ibu, abv: c.abv, preco: c.preco, estoque: c.estoque ?? "" });
+    setForm({ nome: c.nome, estiloId: c.estiloId, fornecedorId: c.fornecedorId, ibu: c.ibu, abv: c.abv, preco: c.preco, estoque: c.estoque ?? "", imagemUrl: c.imagemUrl || "" });
     setErrors({});
     setModal(c);
   };
@@ -75,6 +75,7 @@ export function CervejasPage() {
       abv: Number(form.abv),
       preco: Number(form.preco),
       estoque: Number(form.estoque),
+      imagemUrl: form.imagemUrl,
     };
 
     if (modal === "new") {
@@ -122,9 +123,15 @@ export function CervejasPage() {
         : (
           <div style={styles.grid}>
             {cervejasFiltradas.map(c => (
-              <Card key={c.id} style={{ borderTop: "3px solid #c8860a" }}>
-                <p style={{ fontFamily: "'Playfair Display', serif", fontSize: 20, color: "#f5c842" }}>{c.nome}</p>
-                <p style={{ color: "#888", fontSize: 12, fontFamily: "monospace", margin: "4px 0 12px" }}>
+              <Card key={c.id} style={{ borderTop: "3px solid #c8860a", overflow: "hidden", padding: 0 }}>
+                {c.imagemUrl ? (
+                  <div style={{ width: "100%", height: 160, background: `url(${c.imagemUrl}) center/cover no-repeat` }} />
+                ) : (
+                  <div style={{ width: "100%", height: 80, background: "#1a1c14", display: "flex", alignItems: "center", justifyContent: "center", color: "#666", fontSize: 24 }}>🍺</div>
+                )}
+                <div style={{ padding: 18 }}>
+                  <p style={{ fontFamily: "'Playfair Display', serif", fontSize: 20, color: "#f5c842" }}>{c.nome}</p>
+                  <p style={{ color: "#888", fontSize: 12, fontFamily: "monospace", margin: "4px 0 12px" }}>
                   {getEstilo(c.estiloId)} · {getForn(c.fornecedorId)}
                 </p>
                 <div style={{ display: "flex", gap: 8, flexWrap: "wrap", marginBottom: 12 }}>
@@ -135,9 +142,10 @@ export function CervejasPage() {
                     📦 {c.estoque !== undefined ? c.estoque : "—"} un
                   </Badge>
                 </div>
-                <div style={styles.cardActions}>
-                  <Button variant="ghost" small onClick={() => openEdit(c)}>✏️ Editar</Button>
-                  <Button variant="danger" small onClick={() => excluir(c.id)}>🗑 Excluir</Button>
+                  <div style={styles.cardActions}>
+                    <Button variant="ghost" small onClick={() => openEdit(c)}>✏️ Editar</Button>
+                    <Button variant="danger" small onClick={() => excluir(c.id)}>🗑 Excluir</Button>
+                  </div>
                 </div>
               </Card>
             ))}
@@ -178,7 +186,10 @@ export function CervejasPage() {
               onChange={e => setForm({ ...form, estoque: e.target.value })} error={errors.estoque} />
           </div>
 
-          <div style={{ display: "flex", gap: 10, justifyContent: "flex-end" }}>
+          <Input label="URL da Imagem (opcional)" type="text" placeholder="https://..." value={form.imagemUrl}
+            onChange={e => setForm({ ...form, imagemUrl: e.target.value })} />
+
+          <div style={{ display: "flex", gap: 10, justifyContent: "flex-end", marginTop: 14 }}>
             <Button variant="ghost" onClick={() => setModal(null)}>Cancelar</Button>
             <Button onClick={salvar}>Salvar</Button>
           </div>
