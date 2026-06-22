@@ -14,7 +14,6 @@ import { styles } from "./styles";
 //  NAVEGAÇÃO
 // ═══════════════════════════════════════════════════════
 const ADMIN_NAV = [
-  { id: "catalogo", label: "Catálogo", icon: "🛍️" },
   { id: "estilos", label: "Estilos", icon: "🌾" },
   { id: "fornecedores", label: "Fornecedores", icon: "🚚" },
   { id: "cervejas", label: "Cervejas", icon: "🍺" },
