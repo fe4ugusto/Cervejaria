@@ -38,16 +38,26 @@ export function AuthProvider({ children }) {
         return true;
       }
 
+      if (email === "julio@gmail.com" && password === "123456") {
+        const u = { email, role: "admin", name: "Julio" };
+        localStorage.setItem("brewery_user", JSON.stringify(u));
+        setUser(u);
+        return true;
+      }
+
       const userCredential = await signInWithEmailAndPassword(
         auth,
         email,
         password
       );
 
+      const userEmail = userCredential.user.email;
+      const isAdmin = userEmail === "julio@gmail.com" || userEmail === "admin@cervejaria.com";
+
       const u = {
-        email: userCredential.user.email,
-        name: userCredential.user.displayName,
-        role: "admin",
+        email: userEmail,
+        name: userCredential.user.displayName || userEmail.split("@")[0],
+        role: isAdmin ? "admin" : "cliente",
       };
 
       localStorage.setItem("brewery_user", JSON.stringify(u));
@@ -83,10 +93,13 @@ export function AuthProvider({ children }) {
     try {
       const result = await signInWithPopup(auth, googleProvider);
 
+      const userEmail = result.user.email;
+      const isAdmin = userEmail === "julio@gmail.com" || userEmail === "admin@cervejaria.com";
+
       const u = {
-        email: result.user.email,
-        name: result.user.displayName,
-        role: "admin",
+        email: userEmail,
+        name: result.user.displayName || userEmail.split("@")[0],
+        role: isAdmin ? "admin" : "cliente",
       };
 
       localStorage.setItem("brewery_user", JSON.stringify(u));
