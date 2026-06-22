@@ -87,11 +87,18 @@ export default function ClientCatalogPage() {
     try {
       const q = query(
         collection(db, "vendas"),
-        where("comprador", "==", user.email),
-        orderBy("criadoEm", "desc")
+        where("comprador", "==", user.email)
       );
       const snap = await getDocs(q);
-      setMeusPedidos(snap.docs.map(d => ({ id: d.id, ...d.data() })));
+      
+      const ped = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+      ped.sort((a, b) => {
+        const tA = a.criadoEm?.toMillis ? a.criadoEm.toMillis() : 0;
+        const tB = b.criadoEm?.toMillis ? b.criadoEm.toMillis() : 0;
+        return tB - tA;
+      });
+      
+      setMeusPedidos(ped);
     } catch (err) {
       console.error(err);
     } finally {
