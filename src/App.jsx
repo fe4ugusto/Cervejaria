@@ -20,9 +20,7 @@ const ADMIN_NAV = [
   { id: "relatorio", label: "Relatório", icon: "📊" },
 ];
 
-const CLIENT_NAV = [
-  { id: "catalogo", label: "Catálogo", icon: "🛍️" },
-];
+
 
 // ═══════════════════════════════════════════════════════
 //  DASHBOARD
@@ -41,9 +39,46 @@ function Dashboard() {
     relatorio: RelatorioPage,
   };
 
-  const navItems = user?.role === "cliente" ? CLIENT_NAV : ADMIN_NAV;
-
   const PageComponent = pages[page];
+
+  if (user?.role === "cliente") {
+    return (
+      <div style={{ minHeight: "100vh", display: "flex", flexDirection: "column", background: "#0c0d0f" }}>
+        <header style={{ 
+          display: "flex", justifyContent: "space-between", alignItems: "center", 
+          padding: "14px 24px", background: "#111318", borderBottom: "1px solid #1e2010" 
+        }}>
+          <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+            <span style={{ fontSize: 28 }}>🍻</span>
+            <span style={{ fontFamily: "'Playfair Display', serif", fontSize: 20, color: "#f5c842", fontWeight: 700 }}>
+              Cervejaria Artesanal
+            </span>
+          </div>
+          <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
+            <span style={{ color: "#888", fontSize: 13, fontFamily: "monospace", letterSpacing: 0.5 }}>
+              👤 {user.name || user.email.split('@')[0]}
+            </span>
+            <button 
+              onClick={logout} 
+              style={{ 
+                background: "transparent", border: "1px solid #2a2510", color: "#888", 
+                borderRadius: 20, padding: "6px 16px", fontSize: 13, fontWeight: 600, 
+                cursor: "pointer", display: "flex", alignItems: "center",
+                transition: "all 0.2s", fontFamily: "'Syne', sans-serif"
+              }}
+              onMouseOver={(e) => { e.currentTarget.style.background = "#ef444422"; e.currentTarget.style.borderColor = "#ef444466"; e.currentTarget.style.color = "#ef4444"; }}
+              onMouseOut={(e) => { e.currentTarget.style.background = "transparent"; e.currentTarget.style.borderColor = "#2a2510"; e.currentTarget.style.color = "#888"; }}
+            >
+              Sair
+            </button>
+          </div>
+        </header>
+        <main style={{ flex: 1 }}>
+          <PageComponent />
+        </main>
+      </div>
+    );
+  }
 
   return (
     <div style={styles.appWrap}>
@@ -57,7 +92,7 @@ function Dashboard() {
         </div>
 
         <nav style={{ flex: 1, padding: "8px 0" }}>
-          {navItems.map((n) => (
+          {ADMIN_NAV.map((n) => (
             <button key={n.id} onClick={() => setPage(n.id)}
               style={{ ...styles.navBtn, ...(page === n.id ? styles.navBtnActive : {}) }}>
               <span>{n.icon}</span>
