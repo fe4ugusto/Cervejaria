@@ -1,0 +1,369 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=DM+Mono:wght@400;500&family=Syne:wght@400;600;800&display=swap');
+
+/* Variáveis CSS para a Estética Visual Premium */
+:root {
+  --bg-color: #0c0d0f;
+  --text-color: #e2e8f0;
+  --primary-color: #c8860a;
+  --primary-hover: #e0960f;
+  --secondary-bg: #13150f;
+  --border-color: #1e2010;
+  --border-highlight: #2a2510;
+  --sidebar-bg: #0f1109;
+  --danger-bg: #3b1111;
+  --danger-text: #f87171;
+  --danger-border: #5a1a1a;
+  --ghost-bg: #1a1d24;
+  --ghost-text: #aaa;
+  --ghost-border: #252830;
+  --accent-gold: #f5c842;
+  --muted-text: #666;
+  --error-color: #e05c2a;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: var(--bg-color);
+  color: var(--text-color);
+  font-family: 'Syne', sans-serif;
+  overflow-x: hidden;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #111;
+}
+::-webkit-scrollbar-thumb {
+  background: #333;
+  border-radius: 3px;
+}
+
+select option {
+  background: #1a1d24;
+}
+
+/* Estilos da Tela de Login / Autenticação */
+.login-wrap {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(ellipse at 50% 30%, #1a1200 0%, #0c0d0f 70%);
+}
+
+.login-box {
+  background: var(--secondary-bg);
+  border: 1px solid var(--border-highlight);
+  border-radius: 16px;
+  padding: 40px;
+  width: 100%;
+  max-width: 420px;
+  box-shadow: 0 0 60px rgba(200, 134, 10, 0.09);
+}
+
+.login-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 28px;
+  color: var(--accent-gold);
+  margin-top: 10px;
+  margin-bottom: 4px;
+}
+
+.alert-danger {
+  background: rgba(224, 92, 42, 0.09);
+  border: 1px solid rgba(224, 92, 42, 0.27);
+  border-radius: 8px;
+  padding: 10px 14px;
+  color: var(--error-color);
+  font-size: 13px;
+  font-family: monospace;
+  margin-bottom: 16px;
+}
+
+/* Estilos de Layout Principal do App */
+.app-wrap {
+  display: flex;
+  min-height: 100vh;
+}
+
+.sidebar {
+  width: 220px;
+  background: var(--sidebar-bg);
+  border-right: 1px solid var(--border-color);
+  display: flex;
+  flex-direction: column;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+}
+
+.sidebar-logo {
+  padding: 24px 20px;
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.sidebar-footer {
+  padding: 16px 20px;
+  border-top: 1px solid var(--border-color);
+}
+
+.nav-btn {
+  width: 100%;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  padding: 12px 20px;
+  background: none;
+  border: none;
+  color: var(--muted-text);
+  font-size: 14px;
+  cursor: pointer;
+  font-family: 'Syne', sans-serif;
+  transition: all 0.15s ease;
+  text-align: left;
+}
+
+.nav-btn:hover {
+  color: var(--accent-gold);
+  background: rgba(200, 134, 10, 0.05);
+}
+
+.nav-btn-active {
+  background: rgba(200, 134, 10, 0.09) !important;
+  color: var(--accent-gold) !important;
+  border-right: 3px solid var(--primary-color);
+}
+
+.main-content {
+  flex: 1;
+  padding: 32px;
+  overflow-y: auto;
+  background: var(--bg-color);
+}
+
+/* Componentes Visuais de Página */
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.page-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 26px;
+  color: var(--accent-gold);
+}
+
+/* Componente de Card (Cartões) */
+.card {
+  background: var(--secondary-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 18px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 16px;
+}
+
+.card-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 14px;
+  padding-top: 12px;
+  border-top: 1px solid var(--border-color);
+}
+
+/* Componentes de Tabelas */
+.table-wrap {
+  overflow-x: auto;
+  border-radius: 12px;
+  border: 1px solid var(--border-color);
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.th {
+  background: var(--sidebar-bg);
+  padding: 12px 14px;
+  text-align: left;
+  font-size: 11px;
+  color: var(--muted-text);
+  font-family: monospace;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.tr {
+  border-bottom: 1px solid #141408;
+  transition: background-color 0.15s ease;
+}
+
+.tr:hover {
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.td {
+  padding: 12px 14px;
+  font-size: 13px;
+  color: #ccc;
+}
+
+/* Estilos de Formulários e Entradas */
+.label {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 12px;
+  color: #888;
+  font-family: monospace;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.input {
+  width: 100%;
+  background: var(--sidebar-bg);
+  border: 1px solid var(--border-highlight);
+  border-radius: 8px;
+  padding: 10px 12px;
+  color: var(--text-color);
+  font-size: 14px;
+  font-family: 'Syne', sans-serif;
+  outline: none;
+  transition: border-color 0.15s ease;
+}
+
+.input:focus {
+  border-color: var(--primary-color);
+}
+
+.input-error {
+  border-color: var(--error-color) !important;
+}
+
+.err-msg {
+  color: var(--error-color);
+  font-size: 11px;
+  margin-top: 4px;
+  font-family: monospace;
+}
+
+/* Botões */
+.btn {
+  border: none;
+  border-radius: 8px;
+  padding: 9px 18px;
+  font-size: 13px;
+  cursor: pointer;
+  font-family: 'Syne', sans-serif;
+  font-weight: 600;
+  transition: all 0.15s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+.btn:hover {
+  opacity: 0.9;
+  transform: scale(1.02);
+}
+
+.btn:active {
+  transform: scale(0.98);
+}
+
+.btn-primary {
+  background: var(--primary-color);
+  color: var(--bg-color);
+}
+
+.btn-primary:hover {
+  background: var(--primary-hover);
+}
+
+.btn-danger {
+  background: var(--danger-bg);
+  color: var(--danger-text);
+  border: 1px solid var(--danger-border);
+}
+
+.btn-danger:hover {
+  background: #4f1717;
+}
+
+.btn-ghost {
+  background: var(--ghost-bg);
+  color: var(--ghost-text);
+  border: 1px solid var(--ghost-border);
+}
+
+.btn-ghost:hover {
+  background: #252832;
+  color: #fff;
+}
+
+.btn-small {
+  padding: 5px 12px;
+  font-size: 12px;
+}
+
+/* Caixa de Diálogo (Modais) */
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 20px;
+  backdrop-filter: blur(4px);
+}
+
+.modal {
+  background: var(--secondary-bg);
+  border: 1px solid var(--border-highlight);
+  border-radius: 14px;
+  padding: 28px;
+  width: 100%;
+  max-width: 480px;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 0 60px rgba(200, 134, 10, 0.13);
+  animation: modalEnter 0.2s ease-out;
+}
+
+@keyframes modalEnter {
+  from {
+    opacity: 0;
+    transform: scale(0.95) translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
