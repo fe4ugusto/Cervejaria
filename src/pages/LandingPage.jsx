@@ -8,7 +8,7 @@ export function LandingPage({ onGoToLogin }) {
   const [slide, setSlide] = useState(0);
 
   useEffect(() => {
-    // Scroll handling for sticky nav if needed
+
   }, []);
 
   return (
